@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/ElleChristine.API/.vs/ElleChristine.API
+/src/ElleChristine.API/ElleChristine.API/obj
