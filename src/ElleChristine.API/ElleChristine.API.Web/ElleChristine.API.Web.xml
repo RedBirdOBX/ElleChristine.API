@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ElleChristine.API.Web</name>
+    </assembly>
+    <members>
+        <member name="T:ElleChristine.API.Web.Controllers.ShowsController">
+            <summary>
+            ShowsController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.#ctor(ElleChristine.APi.Service.IShowProcessor,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetCategories(System.Boolean)">
+            <summary>
+            lists all shows
+            </summary>
+            <returns>collection of shows</returns>
+            <example>{baseUrl}/api/shows</example>
+            <param name="showAll">flag to show both inactive and active</param>
+            <response code="200">returns collection of shows</response>
+        </member>
+    </members>
+</doc>
