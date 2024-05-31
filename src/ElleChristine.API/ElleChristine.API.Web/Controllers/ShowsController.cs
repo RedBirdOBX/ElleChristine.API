@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ElleChristine.APi.Service;
 using ElleChristine.API.Dtos;
-using Microsoft.AspNetCore.Authorization;
+using ElleChristine.API.Web.Controllers.ResponseHelpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElleChristine.API.Web.Controllers
@@ -11,7 +11,6 @@ namespace ElleChristine.API.Web.Controllers
     /// </summary>
     [Route("api/shows")]
     [ApiController]
-    //[Authorize]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class ShowsController : ControllerBase
     {
@@ -21,7 +20,7 @@ namespace ElleChristine.API.Web.Controllers
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public ShowsController(IShowProcessor processor, IMapper mapper)
         {
@@ -38,17 +37,17 @@ namespace ElleChristine.API.Web.Controllers
         /// <response code="200">returns collection of shows</response>
         [HttpGet("", Name = "GetShows")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShowDto>>> GetCategories(bool showAll = false)
+        public async Task<ActionResult<IEnumerable<ShowDto>>> GetShows(bool showAll = false)
         {
             try
             {
-                //_logger.LogInformation("Getting categories");
+                //_logger.LogInformation("Getting shows");
 
                 var showsDtos = await _processor.GetShowsAsync(showAll);
-                //foreach (var categoryDto in categoriesDtos)
-                //{
-                //    categoryDto.Links.Add(UriLinkHelper.CreateLinkForCategoryWithinCollection(HttpContext.Request, categoryDto));
-                //}
+                foreach (var showDto in showsDtos)
+                {
+                    showDto.Links.Add(UriLinkHelper.CreateLinkForShowWithinCollection(HttpContext.Request, showDto));
+                }
                 return Ok(showsDtos);
             }
             catch (Exception ex)
@@ -57,5 +56,36 @@ namespace ElleChristine.API.Web.Controllers
                 return StatusCode(500, "An application error occurred.");
             }
         }
+
+        /// <summary>
+        /// returns single show
+        /// </summary>
+        /// <param name="showId"></param>
+        /// <returns>ShowDto</returns>
+        /// <example>{baseUrl}/api/shows/{showId}</example>
+        /// <response code="200">returns requested category</response>
+        [HttpGet("{showId}", Name = "GetShow")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ShowDto>> GetCategory(int showId)
+        {
+            try
+            {
+                if (!await _processor.DoesShowExistAsync(showId))
+                {
+                    return NotFound($"show {showId} not found.");
+                }
+
+                var showDto = await _processor.GetShowAsync(showId) ?? new ShowDto();
+                showDto = UriLinkHelper.CreateLinksForShow(HttpContext.Request, showDto);
+                return Ok(showDto);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError($"Error in {nameof(GetCategory)}", ex);
+                return StatusCode(500, $"An application error occurred. {ex}");
+            }
+        }
+
     }
 }

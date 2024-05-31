@@ -11,10 +11,10 @@
         </member>
         <member name="M:ElleChristine.API.Web.Controllers.ShowsController.#ctor(ElleChristine.APi.Service.IShowProcessor,AutoMapper.IMapper)">
             <summary>
-            
+            Constructor
             </summary>
         </member>
-        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetCategories(System.Boolean)">
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShows(System.Boolean)">
             <summary>
             lists all shows
             </summary>
@@ -22,6 +22,15 @@
             <example>{baseUrl}/api/shows</example>
             <param name="showAll">flag to show both inactive and active</param>
             <response code="200">returns collection of shows</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetCategory(System.Int32)">
+            <summary>
+            returns single show
+            </summary>
+            <param name="showId"></param>
+            <returns>ShowDto</returns>
+            <example>{baseUrl}/api/shows/{showId}</example>
+            <response code="200">returns requested category</response>
         </member>
     </members>
 </doc>

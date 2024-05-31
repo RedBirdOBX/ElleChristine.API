@@ -7,6 +7,8 @@ namespace ElleChristine.API.Data.Repositories
         // shows
         Task<IEnumerable<Show>> GetShowsAsync(bool showAll);
 
-        //Task<Show?> GetShowAsync(int showId);
+        Task<Show?> GetShowAsync(int showId);
+
+        Task<bool> DoesShowExistAsync(int showId);
     }
 }

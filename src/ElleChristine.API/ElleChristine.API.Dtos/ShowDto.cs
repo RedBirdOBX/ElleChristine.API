@@ -1,6 +1,6 @@
 ﻿namespace ElleChristine.API.Dtos
 {
-    public class ShowDto
+    public class ShowDto : LinkedResourcesDto
     {
         public ShowDto()
         {

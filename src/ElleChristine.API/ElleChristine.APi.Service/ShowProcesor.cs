@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ElleChristine.API.Data.DbContexts;
-using ElleChristine.API.Data.Entities;
 using ElleChristine.API.Data.Repositories;
 using ElleChristine.API.Dtos;
 
@@ -33,20 +32,26 @@ namespace ElleChristine.APi.Service
             }
         }
 
-        //public async Task<Show?> GetShowAsync(int showId)
-        //{
-        //    try
-        //    {
-        //        var show = await _repository.GetShowAsync(categoryId, includeSubCategories);
+        public async Task<ShowDto?> GetShowAsync(int showId)
+        {
+            try
+            {
+                var show = await _repository.GetShowAsync(showId);
 
-        //        var results = _mapper.Map<CategoryDto>(category);
-        //        return results;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError($"Error in {nameof(GetCategoryAsync)}", ex);
-        //        throw;
-        //    }
-        //}
+                var results = _mapper.Map<ShowDto>(show);
+                return results;
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError($"Error in {nameof(GetCategoryAsync)}", ex);
+                throw;
+            }
+        }
+
+        public async Task<bool> DoesShowExistAsync(int showId)
+        {
+            return await _repository.DoesShowExistAsync(showId);
+        }
+
     }
 }

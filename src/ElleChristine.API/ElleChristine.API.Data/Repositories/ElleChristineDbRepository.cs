@@ -14,7 +14,6 @@ namespace ElleChristine.API.Data.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(ElleChristineDbContext));
         }
 
-
         // shows
         public async Task<IEnumerable<Show>> GetShowsAsync(bool showAll)
         {
@@ -30,20 +29,16 @@ namespace ElleChristine.API.Data.Repositories
             return results;
         }
 
-        //public async Task<Show?> GetShowAsync(int categoryId, bool includeSubCategories = true)
-        //{
+        public async Task<Show?> GetShowAsync(int showId)
+        {
+            var show = await _dbContext.Shows.Where(c => c.Id == showId).FirstOrDefaultAsync();
+            return show;
+        }
 
-        //    if (includeSubCategories)
-        //    {
-        //        var category = await _dbContext.Categories.Include(c => c.SubCategories).Where(c => c.Id == categoryId).FirstOrDefaultAsync();
-        //        return category;
-        //    }
-        //    else
-        //    {
-        //        var category = await _dbContext.Categories.Where(c => c.Id == categoryId).FirstOrDefaultAsync();
-        //        return category;
-        //    }
-        //}
+        public async Task<bool> DoesShowExistAsync(int showId)
+        {
+            return await _dbContext.Shows.AnyAsync(c => c.Id == showId);
+        }
 
 
         // global
