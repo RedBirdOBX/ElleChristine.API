@@ -60,11 +60,8 @@ builder.Services.AddSwaggerGen((setupAction) =>
 builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:elleChristineDbConnectionString"]));
 builder.Services.AddScoped<IElleChristineDbRepository, ElleChristineDbRepository>();
 builder.Services.AddScoped<IShowProcessor, ShowProcessor>();
-
-// sets content type to return based on file extension of file.
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
-// https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-6.0
 builder.Services.AddHealthChecks();
 
 // auto-mapper
@@ -73,8 +70,6 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -89,14 +84,12 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
-// required for endpoint routing. 'where an endpoint is EXECUTED'.
-// EndPoint routing: preferred way for .NET 6
-// mapping the URI of the request to a controller & action.
 app.UseEndpoints(endpoints =>
 {
-    // adds/maps endpoints for our controller actions (with no conventions)
     endpoints.MapControllers();
 });
 
