@@ -15,17 +15,18 @@ namespace ElleChristine.API.Web.Controllers
     public class ShowsController : ControllerBase
     {
 
-        //private readonly ILogger<CategoriesController> _logger;
+        private readonly ILogger<ShowsController> _logger;
         private readonly IShowProcessor _processor;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public ShowsController(IShowProcessor processor, IMapper mapper)
+        public ShowsController(IShowProcessor processor, IMapper mapper, ILogger<ShowsController> logger)
         {
             _processor = processor ?? throw new ArgumentNullException(nameof(IShowProcessor));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(Mapper));
+            _logger = logger;
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace ElleChristine.API.Web.Controllers
         {
             try
             {
-                //_logger.LogInformation("Getting shows");
+                _logger.LogInformation("Getting shows");
 
                 var showsDtos = await _processor.GetShowsAsync(showAll);
                 foreach (var showDto in showsDtos)
@@ -52,7 +53,7 @@ namespace ElleChristine.API.Web.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Error in {nameof(GetCategories)}", ex);
+                _logger.LogError($"Error in {nameof(GetShows)}", ex);
                 return StatusCode(500, "An application error occurred.");
             }
         }
@@ -67,10 +68,12 @@ namespace ElleChristine.API.Web.Controllers
         [HttpGet("{showId}", Name = "GetShow")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ShowDto>> GetCategory(int showId)
+        public async Task<ActionResult<ShowDto>> GetShow(int showId)
         {
             try
             {
+                _logger.LogInformation($"Getting showId: {showId}");
+
                 if (!await _processor.DoesShowExistAsync(showId))
                 {
                     return NotFound($"show {showId} not found.");
@@ -82,7 +85,7 @@ namespace ElleChristine.API.Web.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Error in {nameof(GetCategory)}", ex);
+                _logger.LogError($"Error in {nameof(GetShow)}", ex);
                 return StatusCode(500, $"An application error occurred. {ex}");
             }
         }

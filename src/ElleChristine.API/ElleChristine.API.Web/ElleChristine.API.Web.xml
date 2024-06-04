@@ -9,7 +9,7 @@
             ShowsController
             </summary>
         </member>
-        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.#ctor(ElleChristine.APi.Service.IShowProcessor,AutoMapper.IMapper)">
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.#ctor(ElleChristine.APi.Service.IShowProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.ShowsController})">
             <summary>
             Constructor
             </summary>
@@ -23,7 +23,7 @@
             <param name="showAll">flag to show both inactive and active</param>
             <response code="200">returns collection of shows</response>
         </member>
-        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetCategory(System.Int32)">
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShow(System.Int32)">
             <summary>
             returns single show
             </summary>
