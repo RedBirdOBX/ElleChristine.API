@@ -80,12 +80,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    // remove if not wanted to expose in prod
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+// required for endpoint routing. 'where an endpoint is EXECUTED'.
+// EndPoint routing: preferred way for .NET 6
+// mapping the URI of the request to a controller & action.
+app.UseEndpoints(endpoints =>
+{
+    // adds/maps endpoints for our controller actions (with no conventions)
+    endpoints.MapControllers();
+});
 
 app.MapHealthChecks("/api/health");
 
