@@ -32,5 +32,13 @@
             <example>{baseUrl}/api/shows/{showId}</example>
             <response code="200">returns requested category</response>
         </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.NextShows">
+            <summary>
+            returns next upcoming show
+            </summary>
+            <returns>ShowDto</returns>
+            <example>{baseUrl}/api/shows/nextshow</example>
+            <response code="200">returns next upcoming show</response>
+        </member>
     </members>
 </doc>

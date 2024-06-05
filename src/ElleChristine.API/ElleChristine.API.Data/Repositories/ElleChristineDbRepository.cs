@@ -35,9 +35,15 @@ namespace ElleChristine.API.Data.Repositories
             return show;
         }
 
+        public async Task<Show?> GetNextShowAsync()
+        {
+            var show = await _dbContext.Shows.Where(s => s.Date >= DateTime.Today && s.Active == true).FirstOrDefaultAsync() ?? new Show();
+            return show;
+        }
+
         public async Task<bool> DoesShowExistAsync(int showId)
         {
-            return await _dbContext.Shows.AnyAsync(c => c.Id == showId);
+            return await _dbContext.Shows.AnyAsync(s => s.Id == showId);
         }
 
 

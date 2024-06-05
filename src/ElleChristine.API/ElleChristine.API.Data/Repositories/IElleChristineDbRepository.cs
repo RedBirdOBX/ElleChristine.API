@@ -9,6 +9,8 @@ namespace ElleChristine.API.Data.Repositories
 
         Task<Show?> GetShowAsync(int showId);
 
+        Task<Show?> GetNextShowAsync();
+
         Task<bool> DoesShowExistAsync(int showId);
     }
 }

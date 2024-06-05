@@ -90,5 +90,30 @@ namespace ElleChristine.API.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// returns next upcoming show
+        /// </summary>
+        /// <returns>ShowDto</returns>
+        /// <example>{baseUrl}/api/shows/nextshow</example>
+        /// <response code="200">returns next upcoming show</response>
+        [HttpGet("nextshow", Name = "NextShow")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ShowDto>> NextShows()
+        {
+            try
+            {
+                _logger.LogInformation("Getting next show");
+
+                // start
+                var showDto = await _processor.GetNextShowAsync() ?? new ShowDto();
+                showDto = UriLinkHelper.CreateLinksForShow(HttpContext.Request, showDto);
+                return Ok(showDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in {nameof(GetShows)}", ex);
+                return StatusCode(500, "An application error occurred.");
+            }
+        }
     }
 }

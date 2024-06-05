@@ -8,6 +8,8 @@ namespace ElleChristine.APi.Service
 
         Task<ShowDto?> GetShowAsync(int showId);
 
+        Task<ShowDto?> GetNextShowAsync();
+
         Task<bool> DoesShowExistAsync(int showId);
     }
 }
