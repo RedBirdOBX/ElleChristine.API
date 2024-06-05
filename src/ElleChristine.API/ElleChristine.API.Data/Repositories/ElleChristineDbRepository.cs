@@ -37,7 +37,9 @@ namespace ElleChristine.API.Data.Repositories
 
         public async Task<Show?> GetNextShowAsync()
         {
-            var show = await _dbContext.Shows.Where(s => s.Date >= DateTime.Today && s.Active == true).FirstOrDefaultAsync() ?? new Show();
+            var shows = await _dbContext.Shows.Where(s => s.Active == true).ToListAsync();
+            var show = shows.Where(s => s.Date >= DateTime.Today && s.Active == true).OrderBy(s => s.Date).FirstOrDefault() 
+                ?? shows.Where(s => s.Date == shows.Max(s => s.Date)).FirstOrDefault();
             return show;
         }
 
