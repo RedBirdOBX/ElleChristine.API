@@ -16,7 +16,7 @@ Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Information()
                     .WriteTo.MSSqlServer
                     (
-                        connectionString: builder.Configuration["ConnectionStrings:elleChristineDbConnectionString"],
+                        connectionString: builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"],
                         sinkOptions: new MSSqlServerSinkOptions
                         {
                             TableName = "Logs",
@@ -57,7 +57,7 @@ builder.Services.AddSwaggerGen((setupAction) =>
 });
 
 // custom services: inject interfaceX, provide an implementation of concrete type Y
-builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:elleChristineDbConnectionString"]));
+builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"]));
 builder.Services.AddScoped<IElleChristineDbRepository, ElleChristineDbRepository>();
 builder.Services.AddScoped<IShowProcessor, ShowProcessor>();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
