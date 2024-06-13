@@ -12,25 +12,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 
 //--LOGGING--//
-Log.Logger = new LoggerConfiguration()
-                    .MinimumLevel.Information()
-                    .WriteTo.MSSqlServer
-                    (
-                        connectionString: builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"],
-                        sinkOptions: new MSSqlServerSinkOptions
-                        {
-                            TableName = "Logs",
-                            SchemaName = "dbo",
-                            AutoCreateSqlTable = true
-                        },
-                        restrictedToMinimumLevel: LogEventLevel.Information,
-                        formatProvider: null,
-                        columnOptions: null,
-                        logEventFormatter: null
-                    )
-                    .WriteTo.Console()
-                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+//Log.Logger = new LoggerConfiguration()
+//                    .MinimumLevel.Information()
+//                    .WriteTo.MSSqlServer
+//                    (
+//                        connectionString: builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"],
+//                        sinkOptions: new MSSqlServerSinkOptions
+//                        {
+//                            TableName = "Logs",
+//                            SchemaName = "dbo",
+//                            AutoCreateSqlTable = true
+//                        },
+//                        restrictedToMinimumLevel: LogEventLevel.Information,
+//                        formatProvider: null,
+//                        columnOptions: null,
+//                        logEventFormatter: null
+//                    )
+//                    .WriteTo.Console()
+//                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+//                .CreateLogger();
 
 //--SERVICES--//
 
@@ -57,7 +57,9 @@ builder.Services.AddSwaggerGen((setupAction) =>
 });
 
 // custom services: inject interfaceX, provide an implementation of concrete type Y
-builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"]));
+//builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"]));
+
+builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseNpgsql(builder.Configuration["ConnectionStrings:postgresDbConnectionString"]));
 builder.Services.AddScoped<IElleChristineDbRepository, ElleChristineDbRepository>();
 builder.Services.AddScoped<IShowProcessor, ShowProcessor>();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
