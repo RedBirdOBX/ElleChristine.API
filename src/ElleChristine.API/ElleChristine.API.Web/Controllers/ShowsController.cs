@@ -53,7 +53,7 @@ namespace ElleChristine.API.Web.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in {nameof(GetShows)}", ex);
+                //_logger.LogError($"Error in {nameof(GetShows)}", ex);
                 return StatusCode(500, "An application error occurred.");
             }
         }

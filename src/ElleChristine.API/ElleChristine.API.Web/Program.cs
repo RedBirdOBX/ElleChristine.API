@@ -3,9 +3,12 @@ using ElleChristine.API.Data.DbContexts;
 using ElleChristine.API.Data.Repositories;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using NpgsqlTypes;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
+using Serilog.Sinks.PostgreSQL.ColumnWriters;
+using Serilog.Sinks.PostgreSQL;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +34,29 @@ builder.Host.UseSerilog();
 //                    .WriteTo.Console()
 //                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
 //                .CreateLogger();
+
+
+string connectionString = builder.Configuration["ConnectionStrings:postgresDbConnectionString"];
+
+string tableName = "logs";
+
+IDictionary<string, ColumnWriterBase> columnWriters = new Dictionary<string, ColumnWriterBase>
+{
+    { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
+    { "message_template", new MessageTemplateColumnWriter(NpgsqlDbType.Text) },
+    { "level", new LevelColumnWriter(true, NpgsqlDbType.Varchar) },
+    { "raise_date", new TimestampColumnWriter(NpgsqlDbType.TimestampTz) },
+    { "exception", new ExceptionColumnWriter(NpgsqlDbType.Text) },
+    { "properties", new LogEventSerializedColumnWriter(NpgsqlDbType.Jsonb) },
+    { "props_test", new PropertiesColumnWriter(NpgsqlDbType.Jsonb) },
+    { "machine_name", new SinglePropertyColumnWriter("MachineName", PropertyWriteMethod.ToString, NpgsqlDbType.Text, "l") }
+};
+
+var logger = new LoggerConfiguration()
+    .WriteTo.PostgreSQL(connectionString, tableName, columnWriters)
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)   
+    .CreateLogger();
 
 //--SERVICES--//
 
