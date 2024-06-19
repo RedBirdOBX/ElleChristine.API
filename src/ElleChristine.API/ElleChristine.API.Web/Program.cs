@@ -11,21 +11,25 @@ using Serilog.Sinks.MSSqlServer;
 using Serilog.Sinks.PostgreSQL.ColumnWriters;
 using Serilog.Sinks.PostgreSQL;
 using Serilog.Configuration;
+using ElleChristine.API.Web.Logging.Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 
 //--LOGGING--//
+var logTblName = "logs";
+var connString = builder.Configuration["ConnectionStrings:postgresDbConnectionString"];
+
 // Serilog log w/ MS Sql Server //
 //Log.Logger = new LoggerConfiguration()
 //                    .MinimumLevel.Information()
 //                    .WriteTo.MSSqlServer
 //                    (
-//                        connectionString: builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"],
+//                        connectionString: connString,
 //                        sinkOptions: new MSSqlServerSinkOptions
 //                        {
-//                            TableName = "Logs",
+//                            TableName = logTblName,
 //                            SchemaName = "dbo",
 //                            AutoCreateSqlTable = true
 //                        },
@@ -37,37 +41,16 @@ builder.Host.UseSerilog();
 //                    .WriteTo.Console()
 //                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
 //                .CreateLogger();
+// END of Serilog log w/ MS Sql Server //
 
-// Serilog w/ Postgres //
-IDictionary<string, ColumnWriterBase> columnWriters = new Dictionary<string, ColumnWriterBase>
-{
-    { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
-    { "message_template", new MessageTemplateColumnWriter(NpgsqlDbType.Text) },
-    { "level", new LevelColumnWriter(true, NpgsqlDbType.Varchar) },
-    { "raise_date", new TimestampColumnWriter(NpgsqlDbType.TimestampTz) },
-    { "exception", new ExceptionColumnWriter(NpgsqlDbType.Text) },
-    { "properties", new LogEventSerializedColumnWriter(NpgsqlDbType.Jsonb) },
-    { "props_test", new PropertiesColumnWriter(NpgsqlDbType.Jsonb) },
-    { "machine_name", new SinglePropertyColumnWriter("MachineName", PropertyWriteMethod.ToString, NpgsqlDbType.Text, "l") }
-};
 
+// Serilog log w/ Postgres //
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).MinimumLevel.Debug()
-	.WriteTo.PostgreSQL(builder.Configuration["ConnectionStrings:postgresDbConnectionString"],
-                        "logs",
-                        columnWriters,
-                        LogEventLevel.Information,
-                        null,
-                        null,
-                        1,
-                        1,
-                        null,
-                        true,
-                        "",
-                        true,
-                        true)
+	.WriteTo.PostgreSQL(connString, logTblName, SerilogConfig.ColumnWriters, LogEventLevel.Information, null, null, 1, 1, null, true, "", true, true)
 	.CreateLogger();
+// End of Serilog log w/ Postgres //
 
 
 
@@ -94,10 +77,12 @@ builder.Services.AddSwaggerGen((setupAction) =>
     };
 });
 
-// custom services: inject interfaceX, provide an implementation of concrete type Y
-//builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"]));
+// ms sql
+//builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(connString));
 
-builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseNpgsql(builder.Configuration["ConnectionStrings:postgresDbConnectionString"]));
+// postgres
+builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseNpgsql(connString));
+
 builder.Services.AddScoped<IElleChristineDbRepository, ElleChristineDbRepository>();
 builder.Services.AddScoped<IShowProcessor, ShowProcessor>();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
