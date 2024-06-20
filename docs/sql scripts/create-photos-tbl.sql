@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS public.photos
     file_name character varying COLLATE pg_catalog."default" NOT NULL,
     heading character varying COLLATE pg_catalog."default" NOT NULL,
     description character varying COLLATE pg_catalog."default" NOT NULL,
+    photo_date date NOT NULL,
+    added date NOT NULL,
     active boolean NOT NULL DEFAULT true,
     CONSTRAINT photos_pkey PRIMARY KEY (id)
 )
