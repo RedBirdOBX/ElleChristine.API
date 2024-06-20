@@ -42,8 +42,6 @@ namespace ElleChristine.API.Web.Controllers
         {
             try
             {
-                _logger.LogInformation("Getting shows");
-
                 var showsDtos = await _processor.GetShowsAsync(showAll);
                 foreach (var showDto in showsDtos)
                 {
@@ -53,7 +51,7 @@ namespace ElleChristine.API.Web.Controllers
             }
             catch (Exception ex)
             {
-                //_logger.LogError($"Error in {nameof(GetShows)}", ex);
+                _logger.LogError($"Error in {nameof(GetShows)}: {ex}");
                 return StatusCode(500, "An application error occurred.");
             }
         }
@@ -72,8 +70,6 @@ namespace ElleChristine.API.Web.Controllers
         {
             try
             {
-                _logger.LogInformation($"Getting showId: {showId}");
-
                 if (!await _processor.DoesShowExistAsync(showId))
                 {
                     return NotFound($"show {showId} not found.");
@@ -85,7 +81,7 @@ namespace ElleChristine.API.Web.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in {nameof(GetShow)}", ex);
+                _logger.LogError($"Error in {nameof(GetShow)}: {ex}");
                 return StatusCode(500, $"An application error occurred. {ex}");
             }
         }
@@ -98,20 +94,17 @@ namespace ElleChristine.API.Web.Controllers
         /// <response code="200">returns next upcoming show</response>
         [HttpGet("nextshow", Name = "NextShow")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ShowDto>> NextShows()
+        public async Task<ActionResult<ShowDto>> NextShow()
         {
             try
             {
-                _logger.LogInformation("Getting next show");
-
-                // start
                 var showDto = await _processor.GetNextShowAsync() ?? new ShowDto();
                 showDto = UriLinkHelper.CreateLinksForShow(HttpContext.Request, showDto);
                 return Ok(showDto);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in {nameof(GetShows)}", ex);
+                _logger.LogError($"Error in {nameof(NextShow)}: {ex}");
                 return StatusCode(500, "An application error occurred.");
             }
         }
