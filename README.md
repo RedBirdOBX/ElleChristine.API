@@ -2,14 +2,20 @@
 
 ## Concept
 
-Build API for web app to call for "Shows" and any other dynamic data. 
- - Start off with standard Entity Framework & Sql Server.
- - Build out new implementation to use PostgreSQL instead of Sql Server. Switch over when ready and at will.
+Build API to provide Shows and Photos data for web app. Has MS Sql Server implementation and PostgreSQL implementation. Also uses Serilog for Console, log file, and data table logging.
 
+## Packages 
 
-https://serilog.net/
+Installed Custom Packages:
+- AutoMapper  
+- AutoMapper.Extensions.Microsoft.DependencyInjection
+- Npsql
+- Npsql.EntityFrameworkCore.PostgreSQL
+- Serilog
+- Serilog.AspNetCore
+- Serilog.Sinks.Console
+- Serilog.Sinks.File
+- Serilog.Sinks.MSSqlServer
+- Serilog.Sinks.PeriodicBatching
+- Serilog.Sinks.Postgresql.Alternative
 
-https://github.com/serilog-contrib/Serilog.Sinks.Postgresql.Alternative
-
-
-Serilog.Sinks.Postgresql.Alternative
