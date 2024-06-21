@@ -8,7 +8,7 @@ namespace ElleChristine.APi.Service
         /// Gets all shows
         /// </summary>
         /// <param name="showAll"></param>
-        /// <returns>collection of ShotDtos</returns>
+        /// <returns>collection of ShowDtos</returns>
         Task<IEnumerable<ShowDto>> GetShowsAsync(bool showAll);
 
         /// <summary>

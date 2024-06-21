@@ -62,7 +62,7 @@ namespace ElleChristine.API.Web.Controllers
         /// <param name="showId"></param>
         /// <returns>ShowDto</returns>
         /// <example>{baseUrl}/api/shows/{showId}</example>
-        /// <response code="200">returns requested category</response>
+        /// <response code="200">returns requested show</response>
         [HttpGet("{showId}", Name = "GetShow")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
