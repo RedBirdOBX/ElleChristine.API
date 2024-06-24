@@ -42,6 +42,8 @@ namespace ElleChristine.API.Web.Controllers
         {
             try
             {
+                _logger.LogInformation("Getting Shows data.");
+
                 var showsDtos = await _processor.GetShowsAsync(showAll);
                 foreach (var showDto in showsDtos)
                 {
