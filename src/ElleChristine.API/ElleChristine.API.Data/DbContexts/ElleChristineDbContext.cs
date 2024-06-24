@@ -11,5 +11,7 @@ namespace ElleChristine.API.Data.DbContexts
         }
 
         public DbSet<Show> Shows { get; set; }
+
+        public DbSet<Photo> Photos { get; set; }
     }
 }

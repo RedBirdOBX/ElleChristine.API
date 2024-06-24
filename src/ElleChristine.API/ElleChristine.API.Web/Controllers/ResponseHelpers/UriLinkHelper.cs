@@ -34,6 +34,35 @@ namespace ElleChristine.API.Web.Controllers.ResponseHelpers
                 throw;
             }
         }
+
+        public static PhotoDto CreateLinksForPhoto(HttpRequest request, PhotoDto photo)
+        {
+            string protocol = (request.IsHttps) ? "https" : "http";
+            try
+            {
+                photo.Links.Add(new LinkDto($"{protocol}://{request.Host}/api/shows/{photo.Id}", "self", "GET"));
+                photo.Links.Add(new LinkDto($"{protocol}://{request.Host}/api/shows", "show-collection", "GET"));
+            }
+            catch
+            {
+                throw;
+            }
+            return photo;
+        }
+
+        public static LinkDto CreateLinkForPhotoWithinCollection(HttpRequest request, PhotoDto photo)
+        {
+            string protocol = (request.IsHttps) ? "https" : "http";
+            try
+            {
+                LinkDto link = new LinkDto($"{protocol}://{request.Host}/api/shows/{photo.Id}", "show", "GET");
+                return link;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 
     #pragma warning restore CS1591

@@ -19,6 +19,11 @@ namespace ElleChristine.APi.Service
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets all shows
+        /// </summary>
+        /// <param name="showAll"></param>
+        /// <returns>collection of ShowDtos</returns>
         public async Task<IEnumerable<ShowDto>> GetShowsAsync(bool showAll = false)
         {
             try
@@ -34,6 +39,11 @@ namespace ElleChristine.APi.Service
             }
         }
 
+        /// <summary>
+        /// gets single show
+        /// </summary>
+        /// <param name="showId"></param>
+        /// <returns>ShotDto</returns>
         public async Task<ShowDto?> GetShowAsync(int showId)
         {
             try
@@ -50,6 +60,10 @@ namespace ElleChristine.APi.Service
             }
         }
 
+        /// <summary>
+        /// gets next upcoming show
+        /// </summary>
+        /// <returns>ShowDto</returns>
         public async Task<ShowDto?> GetNextShowAsync()
         {
             try
@@ -65,6 +79,11 @@ namespace ElleChristine.APi.Service
             }
         }
 
+        /// <summary>
+        /// checks to see if showId is legit
+        /// </summary>
+        /// <param name="showId"></param>
+        /// <returns>bool</returns>
         public async Task<bool> DoesShowExistAsync(int showId)
         {
             return await _repository.DoesShowExistAsync(showId);
