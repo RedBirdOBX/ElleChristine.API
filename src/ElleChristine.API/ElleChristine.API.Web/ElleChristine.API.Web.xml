@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ElleChristine.API.Web</name>
+    </assembly>
+    <members>
+        <member name="T:ElleChristine.API.Web.Controllers.PhotosController">
+            <summary>
+            PhotosController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.PhotosController.#ctor(ElleChristine.APi.Service.IPhotoProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.PhotosController})">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.PhotosController.GetPhotos(System.Boolean)">
+            <summary>
+            lists all photos
+            </summary>
+            <returns>collection of photos</returns>
+            <example>{baseUrl}/api/photos</example>
+            <param name="showAll">flag to show both inactive and active</param>
+            <response code="200">returns collection of photos</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.PhotosController.GetPhoto(System.Int32)">
+            <summary>
+            returns single photo
+            </summary>
+            <param name="photoId"></param>
+            <returns>PhotoDto</returns>
+            <example>{baseUrl}/api/photos/{showId}</example>
+            <response code="200">returns requested photo</response>
+        </member>
+        <member name="T:ElleChristine.API.Web.Controllers.ShowsController">
+            <summary>
+            ShowsController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.#ctor(ElleChristine.APi.Service.IShowProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.ShowsController})">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShows(System.Boolean)">
+            <summary>
+            lists all shows
+            </summary>
+            <returns>collection of shows</returns>
+            <example>{baseUrl}/api/shows</example>
+            <param name="showAll">flag to show both inactive and active</param>
+            <response code="200">returns collection of shows</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShow(System.Int32)">
+            <summary>
+            returns single show
+            </summary>
+            <param name="showId"></param>
+            <returns>ShowDto</returns>
+            <example>{baseUrl}/api/shows/{showId}</example>
+            <response code="200">returns requested show</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.NextShow">
+            <summary>
+            returns next upcoming show
+            </summary>
+            <returns>ShowDto</returns>
+            <example>{baseUrl}/api/shows/nextshow</example>
+            <response code="200">returns next upcoming show</response>
+        </member>
+    </members>
+</doc>
