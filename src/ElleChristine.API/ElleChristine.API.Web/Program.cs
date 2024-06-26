@@ -3,53 +3,47 @@ using ElleChristine.API.Data.DbContexts;
 using ElleChristine.API.Data.Repositories;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using NpgsqlTypes;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
-using Serilog.Sinks.PostgreSQL.ColumnWriters;
-using Serilog.Sinks.PostgreSQL;
-using Serilog.Configuration;
-using ElleChristine.API.Web.Logging.Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 
 //--LOGGING--//
-var logTblName = "logs";
-var connString = builder.Configuration["ConnectionStrings:postgresDbConnectionString"];
+var logTblName = "Logs";
+var connString = builder.Configuration["ConnectionStrings:sqlServerDbConnectionString"];
 
 // Serilog log w/ MS Sql Server //
-//Log.Logger = new LoggerConfiguration()
-//                    .MinimumLevel.Information()
-//                    .WriteTo.MSSqlServer
-//                    (
-//                        connectionString: connString,
-//                        sinkOptions: new MSSqlServerSinkOptions
-//                        {
-//                            TableName = logTblName,
-//                            SchemaName = "dbo",
-//                            AutoCreateSqlTable = true
-//                        },
-//                        restrictedToMinimumLevel: LogEventLevel.Information,
-//                        formatProvider: null,
-//                        columnOptions: null,
-//                        logEventFormatter: null
-//                    )
-//                    .WriteTo.Console()
-//                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
-//                .CreateLogger();
+Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .WriteTo.MSSqlServer
+                    (
+                        connectionString: connString,
+                        sinkOptions: new MSSqlServerSinkOptions
+                        {
+                            TableName = logTblName,
+                            SchemaName = "dbo",
+                            AutoCreateSqlTable = true
+                        },
+                        restrictedToMinimumLevel: LogEventLevel.Information,
+                        formatProvider: null,
+                        columnOptions: null,
+                        logEventFormatter: null
+                    )
+                    .WriteTo.Console()
+                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
 // END of Serilog log w/ MS Sql Server //
 
 
 // Serilog log w/ Postgres //
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).MinimumLevel.Debug()
-	.WriteTo.PostgreSQL(connString, logTblName, SerilogConfig.ColumnWriters, LogEventLevel.Information, null, null, 1, 1, null, true, "", true, true)
-	.CreateLogger();
+//Log.Logger = new LoggerConfiguration()
+//    .WriteTo.Console()
+//    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).MinimumLevel.Debug()
+//	.WriteTo.PostgreSQL(connString, logTblName, SerilogConfig.ColumnWriters, LogEventLevel.Information, null, null, 1, 1, null, true, "", true, true)
+//	.CreateLogger();
 // End of Serilog log w/ Postgres //
 
 
@@ -78,10 +72,10 @@ builder.Services.AddSwaggerGen((setupAction) =>
 });
 
 // ms sql
-//builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(connString));
+builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseSqlServer(connString));
 
 // postgres
-builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseNpgsql(connString));
+//builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbContextOptions.UseNpgsql(connString));
 
 builder.Services.AddScoped<IElleChristineDbRepository, ElleChristineDbRepository>();
 builder.Services.AddScoped<IShowProcessor, ShowProcessor>();

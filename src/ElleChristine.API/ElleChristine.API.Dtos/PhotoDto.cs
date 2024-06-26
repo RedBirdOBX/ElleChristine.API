@@ -33,7 +33,7 @@
         /// <summary>
         /// Date photo was taken
         /// </summary>
-        public DateTime Date { get; set; }
+        public DateTime PhotoDate { get; set; }
 
         /// <summary>
         /// Date record was added
