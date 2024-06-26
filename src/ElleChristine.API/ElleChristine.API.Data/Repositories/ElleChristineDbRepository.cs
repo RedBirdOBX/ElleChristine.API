@@ -54,11 +54,11 @@ namespace ElleChristine.API.Data.Repositories
             var results = new List<Photo>();
             if (showAll)
             {
-                results = await _dbContext.Photos.OrderByDescending(p => p.Date).ToListAsync();
+                results = await _dbContext.Photos.OrderByDescending(p => p.PhotoDate).ToListAsync();
             }
             else
             {
-                results = await _dbContext.Photos.Where(p => p.Active == true).OrderByDescending(p => p.Date).ToListAsync();
+                results = await _dbContext.Photos.Where(p => p.Active == true).OrderByDescending(p => p.PhotoDate).ToListAsync();
             }
             return results;
         }
