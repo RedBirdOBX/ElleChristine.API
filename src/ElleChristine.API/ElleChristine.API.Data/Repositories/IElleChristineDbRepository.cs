@@ -19,5 +19,12 @@ namespace ElleChristine.API.Data.Repositories
         Task<Photo?> GetPhotoAsync(int photoId);
 
         Task<bool> DoesPhotoExistAsync(int photoId);
+
+        // videos
+        Task<IEnumerable<Video>> GetVideosAsync(bool showAll);
+
+        Task<Video?> GetVideoAsync(int videoId);
+
+        Task<bool> DoesVideoExistAsync(int videoId);
     }
 }

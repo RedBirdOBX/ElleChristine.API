@@ -63,6 +63,35 @@ namespace ElleChristine.API.Web.Controllers.ResponseHelpers
                 throw;
             }
         }
+
+        public static LinkDto CreateLinkForVideoWithinCollection(HttpRequest request, VideoDto video)
+        {
+            string protocol = (request.IsHttps) ? "https" : "http";
+            try
+            {
+                LinkDto link = new LinkDto($"{protocol}://{request.Host}/api/videos/{video.Id}", "show", "GET");
+                return link;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public static VideoDto CreateLinksForVideo(HttpRequest request, VideoDto video)
+        {
+            string protocol = (request.IsHttps) ? "https" : "http";
+            try
+            {
+                video.Links.Add(new LinkDto($"{protocol}://{request.Host}/api/videos/{video.Id}", "self", "GET"));
+                video.Links.Add(new LinkDto($"{protocol}://{request.Host}/api/videos", "show-collection", "GET"));
+            }
+            catch
+            {
+                throw;
+            }
+            return video;
+        }
     }
 
     #pragma warning restore CS1591

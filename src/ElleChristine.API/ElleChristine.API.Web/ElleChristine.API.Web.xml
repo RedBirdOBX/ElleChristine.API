@@ -68,5 +68,33 @@
             <example>{baseUrl}/api/shows/nextshow</example>
             <response code="200">returns next upcoming show</response>
         </member>
+        <member name="T:ElleChristine.API.Web.Controllers.VideosController">
+            <summary>
+            VideosController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.VideosController.#ctor(ElleChristine.APi.Service.IVideoProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.VideosController})">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.VideosController.GetVidoes(System.Boolean)">
+            <summary>
+            lists all videos
+            </summary>
+            <returns>collection of videos</returns>
+            <example>{baseUrl}/api/videos</example>
+            <param name="showAll">flag to show both inactive and active</param>
+            <response code="200">returns collection of videos</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.VideosController.GetVideo(System.Int32)">
+            <summary>
+            returns single video
+            </summary>
+            <param name="videoId"></param>
+            <returns>VideoDto</returns>
+            <example>{baseUrl}/api/videos/{videoId}</example>
+            <response code="200">returns requested video</response>
+        </member>
     </members>
 </doc>
