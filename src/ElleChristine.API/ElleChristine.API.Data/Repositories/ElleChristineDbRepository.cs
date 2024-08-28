@@ -74,6 +74,32 @@ namespace ElleChristine.API.Data.Repositories
             return await _dbContext.Photos.AnyAsync(p => p.Id == photoId);
         }
 
+        // videos
+        public async Task<IEnumerable<Video>> GetVideosAsync(bool showAll)
+        {
+            var results = new List<Video>();
+            if (showAll)
+            {
+                results = await _dbContext.Videos.OrderByDescending(v => v.Added).ToListAsync();
+            }
+            else
+            {
+                results = await _dbContext.Videos.Where(v => v.Active == true).OrderByDescending(v => v.Added).ToListAsync();
+            }
+            return results;
+        }
+
+        public async Task<Video?> GetVideoAsync(int videoId)
+        {
+            var photo = await _dbContext.Videos.Where(p => p.Id == videoId).FirstOrDefaultAsync();
+            return photo;
+        }
+
+        public async Task<bool> DoesVideoExistAsync(int videoId)
+        {
+            return await _dbContext.Videos.AnyAsync(v => v.Id == videoId);
+        }
+
         // global
         public async Task<bool> SaveChangesAsync()
         {

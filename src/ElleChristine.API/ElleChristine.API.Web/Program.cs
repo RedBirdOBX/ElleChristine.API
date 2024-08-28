@@ -80,6 +80,7 @@ builder.Services.AddDbContext<ElleChristineDbContext>(dbContextOptions => dbCont
 builder.Services.AddScoped<IElleChristineDbRepository, ElleChristineDbRepository>();
 builder.Services.AddScoped<IShowProcessor, ShowProcessor>();
 builder.Services.AddScoped<IPhotoProcessor, PhotoProcessor>();
+builder.Services.AddScoped<IVideoProcessor, VideoProcessor>();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
 builder.Services.AddHealthChecks();
