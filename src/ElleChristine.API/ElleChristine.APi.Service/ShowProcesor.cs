@@ -3,6 +3,7 @@ using ElleChristine.API.Data.DbContexts;
 using ElleChristine.API.Data.Repositories;
 using ElleChristine.API.Dtos;
 using Microsoft.Extensions.Logging;
+using ElleChristine.API.Dtos.Filters;
 
 namespace ElleChristine.APi.Service
 {
@@ -20,21 +21,21 @@ namespace ElleChristine.APi.Service
         }
 
         /// <summary>
-        /// Gets all shows
+        /// returns a filtered list of shows
         /// </summary>
-        /// <param name="showAll"></param>
+        /// <param name="filter"></param>
         /// <returns>collection of ShowDtos</returns>
-        public async Task<IEnumerable<ShowDto>> GetShowsAsync(bool showAll = false)
+        public async Task<IEnumerable<ShowDto>> GetShowsFilteredAsync(ShowFilter filter)
         {
             try
             {
-                var shows = await _repository.GetShowsAsync(showAll);
+                var shows = await _repository.GetShowsFilteredAsync(filter);
                 var results = _mapper.Map<IEnumerable<ShowDto>>(shows);
                 return results;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in {nameof(GetShowsAsync)}", ex);
+                _logger.LogError($"Error in {nameof(GetShowsFilteredAsync)}", ex);
                 throw ex;
             }
         }

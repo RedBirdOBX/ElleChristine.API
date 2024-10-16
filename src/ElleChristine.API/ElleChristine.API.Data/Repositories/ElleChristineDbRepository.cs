@@ -1,6 +1,7 @@
 ﻿using ElleChristine.API.Data.DbContexts;
 using ElleChristine.API.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using ElleChristine.API.Dtos.Filters;
 
 
 namespace ElleChristine.API.Data.Repositories
@@ -15,18 +16,33 @@ namespace ElleChristine.API.Data.Repositories
         }
 
         // shows
-        public async Task<IEnumerable<Show>> GetShowsAsync(bool showAll)
+        public async Task<IEnumerable<Show>> GetShowsFilteredAsync(ShowFilter filter)
         {
-            var results = new List<Show>();
-            if (showAll)
+            //var results = new List<Show>();
+
+            // default
+            if (filter.Active == null && filter.Date == null)
             {
-                results = await _dbContext.Shows.OrderBy(s => s.Date).ToListAsync();
+                return await _dbContext.Shows.OrderBy(s => s.Date).ToListAsync();
             }
+
+            // active only
+            if (filter.Active != null && filter.Date == null)
+            {
+                return await _dbContext.Shows.Where(s => s.Active == filter.Active).OrderBy(s => s.Date).ToListAsync();
+            }
+
+            // date only
+            else if (filter.Active == null && filter.Date != null)
+            {
+                return await _dbContext.Shows.Where(s => s.Date >= filter.Date).OrderBy(s => s.Date).ToListAsync();
+            }
+
+            // date and active
             else
             {
-                results = await _dbContext.Shows.Where(s => s.Active == true).OrderBy(s => s.Date).ToListAsync();
+                return await _dbContext.Shows.Where(s => s.Date >= filter.Date && s.Active == filter.Active).OrderBy(s => s.Date).ToListAsync();
             }
-            return results;
         }
 
         public async Task<Show?> GetShowAsync(int showId)

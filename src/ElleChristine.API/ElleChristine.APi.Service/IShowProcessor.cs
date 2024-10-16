@@ -1,22 +1,23 @@
 ﻿using ElleChristine.API.Dtos;
+using ElleChristine.API.Dtos.Filters;
 
 namespace ElleChristine.APi.Service
 {
     public interface IShowProcessor
     {
         /// <summary>
-        /// Gets all shows
-        /// </summary>
-        /// <param name="showAll"></param>
-        /// <returns>collection of ShowDtos</returns>
-        Task<IEnumerable<ShowDto>> GetShowsAsync(bool showAll);
-
-        /// <summary>
         /// gets a single show
         /// </summary>
         /// <param name="showId"></param>
-        /// <returns></returns>
+        /// <returns>ShowDto</returns>
         Task<ShowDto?> GetShowAsync(int showId);
+
+        /// <summary>
+        /// returns a list of filtered shows
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns>collection of ShowDtos</returns>
+        Task<IEnumerable<ShowDto>> GetShowsFilteredAsync(ShowFilter filter);
 
         /// <summary>
         /// Gets the next upcoming show

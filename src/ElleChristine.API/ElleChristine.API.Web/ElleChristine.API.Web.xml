@@ -42,14 +42,14 @@
             Constructor
             </summary>
         </member>
-        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShows(System.Boolean)">
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShowsFiltered(ElleChristine.API.Dtos.Filters.ShowFilter)">
             <summary>
-            lists all shows
+            returns collection of filtered shows
             </summary>
             <returns>collection of shows</returns>
             <example>{baseUrl}/api/shows</example>
-            <param name="showAll">flag to show both inactive and active</param>
-            <response code="200">returns collection of shows</response>
+            <param name="filter">filter for shows</param>
+            <response code="200">returns collection of filtered shows</response>
         </member>
         <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShow(System.Int32)">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ElleChristine.APi.Service;
 using ElleChristine.API.Dtos;
+using ElleChristine.API.Dtos.Filters;
 using ElleChristine.API.Web.Controllers.ResponseHelpers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,21 +31,21 @@ namespace ElleChristine.API.Web.Controllers
         }
 
         /// <summary>
-        /// lists all shows
+        /// returns collection of filtered shows
         /// </summary>
         /// <returns>collection of shows</returns>
         /// <example>{baseUrl}/api/shows</example>
-        /// <param name="showAll">flag to show both inactive and active</param>
-        /// <response code="200">returns collection of shows</response>
-        [HttpGet("", Name = "GetShows")]
+        /// <param name="filter">filter for shows</param>
+        /// <response code="200">returns collection of filtered shows</response>
+        [HttpPost("", Name = "GetShowsFiltered")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ShowDto>>> GetShows(bool showAll = false)
+        public async Task<ActionResult<IEnumerable<ShowDto>>> GetShowsFiltered(ShowFilter filter)
         {
             try
             {
                 _logger.LogInformation("Getting Shows data.");
 
-                var showsDtos = await _processor.GetShowsAsync(showAll);
+                var showsDtos = await _processor.GetShowsFilteredAsync(filter);
                 foreach (var showDto in showsDtos)
                 {
                     showDto.Links.Add(UriLinkHelper.CreateLinkForShowWithinCollection(HttpContext.Request, showDto));
@@ -53,7 +54,7 @@ namespace ElleChristine.API.Web.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in {nameof(GetShows)}: {ex}");
+                _logger.LogError($"Error in {nameof(GetShowsFiltered)}: {ex}");
                 return StatusCode(500, "An application error occurred.");
             }
         }

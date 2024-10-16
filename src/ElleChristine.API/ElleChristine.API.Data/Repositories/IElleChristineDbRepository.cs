@@ -1,11 +1,12 @@
 ﻿using ElleChristine.API.Data.Entities;
+using ElleChristine.API.Dtos.Filters;
 
 namespace ElleChristine.API.Data.Repositories
 {
     public interface IElleChristineDbRepository
     {
         // shows
-        Task<IEnumerable<Show>> GetShowsAsync(bool showAll);
+        Task<IEnumerable<Show>> GetShowsFilteredAsync(ShowFilter filter);
 
         Task<Show?> GetShowAsync(int showId);
 
