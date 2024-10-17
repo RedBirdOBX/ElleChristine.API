@@ -21,6 +21,25 @@ namespace ElleChristine.APi.Service
         }
 
         /// <summary>
+        /// returns a list of shows
+        /// </summary>
+        /// <returns>collection of ShowDtos</returns>
+        public async Task<IEnumerable<ShowDto>> GetShowsAsync()
+        {
+            try
+            {
+                var shows = await _repository.GetShowsAsync();
+                var results = _mapper.Map<IEnumerable<ShowDto>>(shows);
+                return results;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in {nameof(GetShowsAsync)}", ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// returns a filtered list of shows
         /// </summary>
         /// <param name="filter"></param>

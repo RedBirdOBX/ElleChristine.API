@@ -13,6 +13,12 @@ namespace ElleChristine.APi.Service
         Task<ShowDto?> GetShowAsync(int showId);
 
         /// <summary>
+        /// returns a list of shows
+        /// </summary>
+        /// <returns>collection of ShowDtos</returns>
+        Task<IEnumerable<ShowDto>> GetShowsAsync();
+
+        /// <summary>
         /// returns a list of filtered shows
         /// </summary>
         /// <param name="filter"></param>

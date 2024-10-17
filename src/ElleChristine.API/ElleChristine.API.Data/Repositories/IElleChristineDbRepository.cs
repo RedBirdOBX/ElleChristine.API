@@ -6,6 +6,8 @@ namespace ElleChristine.API.Data.Repositories
     public interface IElleChristineDbRepository
     {
         // shows
+        Task<IEnumerable<Show>> GetShowsAsync();
+
         Task<IEnumerable<Show>> GetShowsFilteredAsync(ShowFilter filter);
 
         Task<Show?> GetShowAsync(int showId);

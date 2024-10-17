@@ -16,6 +16,11 @@ namespace ElleChristine.API.Data.Repositories
         }
 
         // shows
+        public async Task<IEnumerable<Show>> GetShowsAsync()
+        {
+            return await _dbContext.Shows.OrderBy(s => s.Date).ToListAsync();
+        }
+
         public async Task<IEnumerable<Show>> GetShowsFilteredAsync(ShowFilter filter)
         {
             //var results = new List<Show>();

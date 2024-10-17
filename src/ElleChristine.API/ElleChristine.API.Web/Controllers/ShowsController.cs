@@ -31,19 +31,47 @@ namespace ElleChristine.API.Web.Controllers
         }
 
         /// <summary>
+        /// returns collection of all shows
+        /// </summary>
+        /// <returns>collection of shows</returns>
+        /// <example>{baseUrl}/api/shows</example>
+        /// <response code="200">returns collection of shows</response>
+        [HttpGet("", Name = "GetShows")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ShowDto>>> GetShows()
+        {
+            try
+            {
+                _logger.LogInformation("Getting Shows data.");
+
+                var showsDtos = await _processor.GetShowsAsync();
+                foreach (var showDto in showsDtos)
+                {
+                    showDto.Links.Add(UriLinkHelper.CreateLinkForShowWithinCollection(HttpContext.Request, showDto));
+                }
+                return Ok(showsDtos);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error in {nameof(GetShows)}: {ex}");
+                return StatusCode(500, "An application error occurred.");
+            }
+        }
+
+        /// <summary>
         /// returns collection of filtered shows
         /// </summary>
         /// <returns>collection of shows</returns>
         /// <example>{baseUrl}/api/shows</example>
         /// <param name="filter">filter for shows</param>
         /// <response code="200">returns collection of filtered shows</response>
-        [HttpPost("", Name = "GetShowsFiltered")]
+        [HttpPost("filter", Name = "GetShowsFiltered")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ShowDto>>> GetShowsFiltered(ShowFilter filter)
         {
             try
             {
-                _logger.LogInformation("Getting Shows data.");
+                _logger.LogInformation("Getting Filtered Shows data.");
 
                 var showsDtos = await _processor.GetShowsFilteredAsync(filter);
                 foreach (var showDto in showsDtos)

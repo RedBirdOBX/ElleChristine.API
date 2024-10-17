@@ -42,6 +42,14 @@
             Constructor
             </summary>
         </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShows">
+            <summary>
+            returns collection of all shows
+            </summary>
+            <returns>collection of shows</returns>
+            <example>{baseUrl}/api/shows</example>
+            <response code="200">returns collection of shows</response>
+        </member>
         <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShowsFiltered(ElleChristine.API.Dtos.Filters.ShowFilter)">
             <summary>
             returns collection of filtered shows
