@@ -1,6 +1,7 @@
 ﻿using ElleChristine.API.Data.DbContexts;
 using ElleChristine.API.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using ElleChristine.API.Dtos.Filters;
 
 
 namespace ElleChristine.API.Data.Repositories
@@ -15,18 +16,56 @@ namespace ElleChristine.API.Data.Repositories
         }
 
         // shows
-        public async Task<IEnumerable<Show>> GetShowsAsync(bool showAll)
+        public async Task<IEnumerable<Show>> GetShowsAsync()
         {
-            var results = new List<Show>();
-            if (showAll)
+            return await _dbContext.Shows.OrderBy(s => s.Date).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Show>> GetShowsFilteredAsync(ShowFilter filter)
+        {
+            // default
+            if (filter.Active == null && filter.StartDate == null && filter.EndDate == null)
             {
-                results = await _dbContext.Shows.OrderBy(s => s.Date).ToListAsync();
+                return await _dbContext.Shows.OrderBy(s => s.Date).ToListAsync();
             }
+
+            // active only
+            if (filter.Active != null && filter.StartDate == null && filter.EndDate == null)
+            {
+                return await _dbContext.Shows.Where(s => s.Active == filter.Active).OrderBy(s => s.Date).ToListAsync();
+            }
+
+            // using dates
+            else if (filter.Active == null && (filter.StartDate != null || filter.EndDate != null))
+            {
+                if (filter.StartDate == null)
+                {
+                    filter.StartDate = DateTime.Today.AddYears(-1);
+                }
+
+                if (filter.EndDate == null)
+                {
+                    filter.EndDate = DateTime.Today.AddYears(1);
+                }
+
+                return await _dbContext.Shows.Where(s => s.Date >= filter.StartDate && s.Date <= filter.EndDate).OrderBy(s => s.Date).ToListAsync();
+            }
+
+            // date and active
             else
             {
-                results = await _dbContext.Shows.Where(s => s.Active == true).OrderBy(s => s.Date).ToListAsync();
+                if (filter.StartDate == null)
+                {
+                    filter.StartDate = DateTime.Today.AddYears(-1);
+                }
+
+                if (filter.EndDate == null)
+                {
+                    filter.EndDate = DateTime.Today.AddYears(1);
+                }
+
+                return await _dbContext.Shows.Where(s => s.Active == filter.Active && s.Date >= filter.StartDate && s.Date <= filter.EndDate).OrderBy(s => s.Date).ToListAsync();
             }
-            return results;
         }
 
         public async Task<Show?> GetShowAsync(int showId)
