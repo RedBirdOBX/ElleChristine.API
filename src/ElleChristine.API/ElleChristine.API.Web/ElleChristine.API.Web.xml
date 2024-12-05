@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ElleChristine.API.Web</name>
+    </assembly>
+    <members>
+        <member name="T:ElleChristine.API.Web.Controllers.PhotosController">
+            <summary>
+            PhotosController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.PhotosController.#ctor(ElleChristine.APi.Service.IPhotoProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.PhotosController})">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.PhotosController.GetPhotos(System.Boolean)">
+            <summary>
+            lists all photos
+            </summary>
+            <returns>collection of photos</returns>
+            <example>{baseUrl}/api/photos</example>
+            <param name="showAll">flag to show both inactive and active</param>
+            <response code="200">returns collection of photos</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.PhotosController.GetPhoto(System.Int32)">
+            <summary>
+            returns single photo
+            </summary>
+            <param name="photoId"></param>
+            <returns>PhotoDto</returns>
+            <example>{baseUrl}/api/photos/{showId}</example>
+            <response code="200">returns requested photo</response>
+        </member>
+        <member name="T:ElleChristine.API.Web.Controllers.ShowsController">
+            <summary>
+            ShowsController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.#ctor(ElleChristine.APi.Service.IShowProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.ShowsController})">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShows">
+            <summary>
+            returns collection of all shows
+            </summary>
+            <returns>collection of shows</returns>
+            <example>{baseUrl}/api/shows</example>
+            <response code="200">returns collection of shows</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShowsFiltered(ElleChristine.API.Dtos.Filters.ShowFilter)">
+            <summary>
+            returns collection of filtered shows
+            </summary>
+            <returns>collection of shows</returns>
+            <example>{baseUrl}/api/shows</example>
+            <param name="filter">filter for shows</param>
+            <response code="200">returns collection of filtered shows</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.GetShow(System.Int32)">
+            <summary>
+            returns single show
+            </summary>
+            <param name="showId"></param>
+            <returns>ShowDto</returns>
+            <example>{baseUrl}/api/shows/{showId}</example>
+            <response code="200">returns requested show</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.ShowsController.NextShow">
+            <summary>
+            returns next upcoming show
+            </summary>
+            <returns>ShowDto</returns>
+            <example>{baseUrl}/api/shows/nextshow</example>
+            <response code="200">returns next upcoming show</response>
+        </member>
+        <member name="T:ElleChristine.API.Web.Controllers.VideosController">
+            <summary>
+            VideosController
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.VideosController.#ctor(ElleChristine.APi.Service.IVideoProcessor,AutoMapper.IMapper,Microsoft.Extensions.Logging.ILogger{ElleChristine.API.Web.Controllers.VideosController})">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.VideosController.GetVidoes(System.Boolean)">
+            <summary>
+            lists all videos
+            </summary>
+            <returns>collection of videos</returns>
+            <example>{baseUrl}/api/videos</example>
+            <param name="showAll">flag to show both inactive and active</param>
+            <response code="200">returns collection of videos</response>
+        </member>
+        <member name="M:ElleChristine.API.Web.Controllers.VideosController.GetVideo(System.Int32)">
+            <summary>
+            returns single video
+            </summary>
+            <param name="videoId"></param>
+            <returns>VideoDto</returns>
+            <example>{baseUrl}/api/videos/{videoId}</example>
+            <response code="200">returns requested video</response>
+        </member>
+    </members>
+</doc>

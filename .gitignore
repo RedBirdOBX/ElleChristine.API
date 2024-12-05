@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/ElleChristine.API/.vs/ElleChristine.API
+/src/ElleChristine.API/ElleChristine.API/obj
+/src/ElleChristine.API/ElleChristine.API/bin/Debug/net6.0
+/src/ElleChristine.API/.vs/ProjectEvaluation
+/src/ElleChristine.API/ElleChristine.API.Data/bin/Debug/net6.0
+/src/ElleChristine.API/ElleChristine.API.Data/obj
+/src/ElleChristine.API/ElleChristine.API.Dtos/obj
+/src/ElleChristine.API/ElleChristine.API.Dtos/bin/Debug/net6.0
+/src/ElleChristine.API/ElleChristine.APi.Service/bin/Debug/net6.0
+/src/ElleChristine.API/ElleChristine.APi.Service/obj
+/src/ElleChristine.API/ElleChristine.API.Web/bin/Debug/net6.0
+/src/ElleChristine.API/ElleChristine.API.Web/obj
+/src/ElleChristine.API/ElleChristine.API.Web/logs
+/src/ElleChristine.API/ElleChristine.API.Web/Properties/launchSettings.json
+/.vs
