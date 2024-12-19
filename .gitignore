@@ -13,7 +13,6 @@
 /src/ElleChristine.API/ElleChristine.APi.Service/bin/Debug/net6.0
 /src/ElleChristine.API/ElleChristine.APi.Service/obj
 /src/ElleChristine.API/ElleChristine.API.Web/bin/Debug/net6.0
-/src/ElleChristine.API/ElleChristine.API.Web/obj
 /src/ElleChristine.API/ElleChristine.API.Web/logs
 /src/ElleChristine.API/ElleChristine.API.Web/Properties/launchSettings.json
 /.vs
@@ -27,3 +26,5 @@ src/.vs/ElleChristine.API/FileContentIndex/88ad8105-c7b6-468b-9d95-0d817d0683f0.
 /src/ElleChristine.API.Web/bin
 /src/ElleChristine.APi.Service/bin
 /src/ElleChristine.APi.Service/obj
+
+
