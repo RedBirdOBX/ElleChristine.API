@@ -1,0 +1,47 @@
+{
+    "profiles":
+    {
+        "ElleChristine.API":
+        {
+            "commandName": "Project",
+            "dotnetRunMessages": true,
+            "launchBrowser": true,
+            "launchUrl": "swagger",
+            "applicationUrl": "https://localhost:7177;http://localhost:5026",
+            "environmentVariables":
+            {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ConnectionStrings:local-drummersDbConnectionString": "Data Source=REDBIRDDESKTOP\\SQLEXPRESS02; Database=DrummersDatabase; Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;",
+                "ConnectionStrings:sqlServerDbConnectionString": "Server=tcp:elle-christine-sql.database.windows.net,1433;Initial Catalog=elle-christine;Persist Security Info=False;User ID=ecSqlAdmin;Password=ecSqlS!ngBig;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+
+                // local
+                //"ConnectionStrings:postgresDbConnectionString": "Server=localhost; Port=5432;Database=elle-christine;User ID=postgres;Password=Artemis3!p;",
+
+                // prod
+                "ConnectionStrings:postgresDbConnectionString": "Server=elle-christine-postres-svr.postgres.database.azure.com; Port=5432;Database=elle-christine;User ID=ecSqlAdmin;Password=elleSqlS!ngBig;"
+            }
+        },
+        "IIS Express":
+        {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "swagger",
+            "environmentVariables":
+            {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    },
+    "$schema": "https://json.schemastore.org/launchsettings.json",
+    "iisSettings":
+    {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress":
+        {
+            "applicationUrl": "http://localhost:19009",
+            "sslPort": 44326
+        }
+    }
+
+}
