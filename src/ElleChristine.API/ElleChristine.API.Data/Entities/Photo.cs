@@ -18,6 +18,10 @@ namespace ElleChristine.API.Data.Entities
 
         public string FileName { get; set; }
 
+        public int Height { get; set; }
+
+        public int Width { get; set; }
+
         public string Heading { get; set; }
 
         public string Description { get; set; }
