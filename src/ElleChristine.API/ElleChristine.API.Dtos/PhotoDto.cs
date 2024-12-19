@@ -21,6 +21,16 @@
         public string FileName { get; set; }
 
         /// <summary>
+        /// Img Height
+        /// </summary>
+        public int Height { get; set; }
+
+        /// <summary>
+        /// Img Width
+        /// </summary>
+        public int Width { get; set; }
+
+        /// <summary>
         /// Heading for photo
         /// </summary>
         public string Heading { get; set; }
