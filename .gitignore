@@ -17,3 +17,13 @@
 /src/ElleChristine.API/ElleChristine.API.Web/logs
 /src/ElleChristine.API/ElleChristine.API.Web/Properties/launchSettings.json
 /.vs
+src/.vs/ElleChristine.API/FileContentIndex/88ad8105-c7b6-468b-9d95-0d817d0683f0.vsidx
+/src/.vs
+/src/ElleChristine.API.Data/bin
+/src/ElleChristine.API.Data/obj
+/src/ElleChristine.API.Dtos/bin
+/src/ElleChristine.API.Dtos/obj
+/src/ElleChristine.API.Web/obj
+/src/ElleChristine.API.Web/bin
+/src/ElleChristine.APi.Service/bin
+/src/ElleChristine.APi.Service/obj
