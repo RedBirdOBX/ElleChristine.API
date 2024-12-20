@@ -1,6 +1,7 @@
 using ElleChristine.APi.Service;
 using ElleChristine.API.Data.DbContexts;
 using ElleChristine.API.Data.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -87,6 +88,7 @@ builder.Services.AddHealthChecks();
 
 // auto-mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 var app = builder.Build();
 
